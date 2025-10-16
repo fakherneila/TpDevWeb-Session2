@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suite de Syracuse - Collatz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input[type="number"] {
+            width: 80px;
+        }
+        #result, #sequence {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        #sequence {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Suite de Syracuse (Collatz)</h1>
+    <p>Entrez un entier positif :</p>
+    <input type="number" id="numberInput" min="1">
+    <button onclick="lancerCollatz()">Valider</button>
+
+    <div id="result"></div>
+    <div id="sequence"></div>
+
+    <script>
+    e
+        function collatz(n) {
+            if (n % 2 === 0) {
+                return n / 2;
+            } else {
+                return 3 * n + 1;
+            }
+        }
+
+        function conjecture(n) {
+            const suite = [n];
+            while (n !== 1) {
+                n = collatz(n);
+                suite.push(n);
+            }
+            return suite;
+        }
+
+        function lancerCollatz() {
+            const input = document.getElementById("numberInput").value;
+            const n = parseInt(input);
+
+            if (isNaN(n) || n <= 0) {
+                alert("Veuillez entrer un entier positif !");
+                return;
+            }
+
+            const successeur = collatz(n);
+            document.getElementById("result").textContent = 
+                `Successeur selon Collatz : ${successeur}`;
+
+
+            const suite = conjecture(n);
+            document.getElementById("sequence").textContent = 
+                `Suite de Syracuse : ${suite.join(" -> ")}\nTemps de vol : ${suite.length}`;
+        }
+    </script>
+</body>
+</html>

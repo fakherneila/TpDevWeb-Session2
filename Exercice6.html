@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableaux de Nombres</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input[type="number"] {
+            width: 60px;
+        }
+        #tableau {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .element {
+            padding: 8px 12px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            text-align: center;
+        }
+        #resultats {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tableaux de Nombres</h1>
+    <p>Entrez le nombre d'éléments du tableau :</p>
+    <input type="number" id="nombreInput" min="1">
+    <button onclick="genererTableau()">Créer le tableau</button>
+
+    <div id="tableau"></div>
+    <div id="resultats"></div>
+
+    <script>
+
+        function creerTableau(n) {
+            const tableau = [];
+            for (let i = 0; i < n; i++) {
+                tableau.push(Math.floor(Math.random() * 101));
+            }
+            return tableau;
+        }
+
+        function afficherTableau(tab) {
+            const container = document.getElementById("tableau");
+            container.innerHTML = "";
+            tab.forEach((val) => {
+                const div = document.createElement("div");
+                div.className = "element";
+                div.textContent = val;
+                container.appendChild(div);
+            });
+        }
+
+        function sommeTableau(tab) {
+            return tab.reduce((acc, val) => acc + val, 0);
+        }
+
+        function moyenneTableau(tab) {
+            return sommeTableau(tab) / tab.length;
+        }
+
+        function minTableau(tab) {
+            return Math.min(...tab);
+        }
+
+        function genererTableau() {
+            const n = parseInt(document.getElementById("nombreInput").value);
+            if (isNaN(n) || n <= 0) {
+                alert("Veuillez entrer un nombre positif !");
+                return;
+            }
+
+            const tableau = creerTableau(n);
+            afficherTableau(tableau);
+
+            const resultatsDiv = document.getElementById("resultats");
+            resultatsDiv.innerHTML = `
+                Somme : ${sommeTableau(tableau)}<br>
+                Moyenne : ${moyenneTableau(tableau).toFixed(2)}<br>
+                Plus petit élément : ${minTableau(tableau)}
+            `;
+        }
+    </script>
+</body>
+</html>

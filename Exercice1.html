@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercice 1 - Le maximum de nombres</title>
+</head>
+<body>
+
+  <h2>Exercice 1 : Trouver le maximum</h2>
+
+  <script>
+    
+    function max(a, b) {
+      if (a > b) {
+        return a;
+      } else {
+        return b;
+      }
+    }
+
+    function max3_usingMax(a, b, c) {
+      return max(max(a, b), c);
+    }
+    function max3_direct(a, b, c) {
+      if (a >= b && a >= c) {
+        return a;
+      } else if (b >= a && b >= c) {
+        return b;
+      } else {
+        return c;
+      }
+    }
+
+    
+    let a = parseInt(prompt("Entrez le premier nombre :"));
+    let b = parseInt(prompt("Entrez le deuxième nombre :"));
+
+ 
+    document.write("Le maximum de " + a + " et " + b + " est : " + max(a, b) + "<br>");
+
+  
+    let c = parseInt(prompt("Entrez le troisième nombre :"));
+
+   
+    document.write("Le maximum de (" + a + ", " + b + ", " + c + ") avec max() est : " + max3_usingMax(a, b, c) + "<br>");
+    document.write("Le maximum de (" + a + ", " + b + ", " + c + ") sans max() est : " + max3_direct(a, b, c));
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercice 1 - Le maximum de nombres</title>
+</head>
+<body>
+
+  <h2>Exercice 2 : Temperature </h2>
+
+  <script>
+
+    function Farenheit_To_Celsius(fahrenheit) {
+      return (fahrenheit - 32) * 5 / 9;
+    }
+
+    function Celsius_To_Farenheit(celsius) {
+      return (celsius * 9 / 5) + 32;
+    }
+
+
+    
+    let a = parseInt(prompt("Entrez la temperature en Farenheit :"));
+    let b = parseInt(prompt("Entrez la temperature en Celsius :"));
+
+   
+
+    document.write(a + "°F en Celsius est : " + Farenheit_To_Celsius(a).toFixed(2) + "°C<br>");
+    document.write(b + "°C en Farenheit est : " + Celsius_To_Farenheit(b).toFixed(2) + "°F<br>");
+
+   
+    
+  </script>
+
+</body>
+</html>

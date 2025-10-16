@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 7 -Notes des élèves</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid #000;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        h2 {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestion des notes des élèves</h1>
+    <div id="affichageNotes"></div>
+    <div id="moyennes"></div>
+    <div id="minMax"></div>
+
+    <script>
+        const NomEleves = ["Nizar", "Mohamed", "Ahmed", "Walid", "Foued", "Lamia", "Asma", "Nadia"];
+        const Notes = [
+            [10,12,18,5,9,13,16,19],
+            [13,11,14,7,14,16,12,10],
+            [9,14,14,12,8,20,13,13]
+        ];
+
+        function Afficher(TabNom, TabNotes) {
+            let html = "<h2>Liste des élèves et leurs notes</h2>";
+            html += "<table><thead><tr><th>Élève</th>";
+            TabNotes.forEach((_, i) => html += `<th>Note ${i+1}</th>`);
+            html += "</tr></thead><tbody>";
+
+            TabNom.forEach((nom, i) => {
+                html += `<tr><td>${nom}</td>`;
+                TabNotes.forEach(noteLigne => html += `<td>${noteLigne[i]}</td>`);
+                html += "</tr>";
+            });
+
+            html += "</tbody></table>";
+            document.getElementById("affichageNotes").innerHTML = html;
+        }
+        function CalculMoyenneEleve(TabNom, TabNotes) {
+            let html = "<h2>Moyenne de chaque élève</h2>";
+            html += "<table><thead><tr><th>Élève</th><th>Moyenne</th></tr></thead><tbody>";
+
+            TabNom.forEach((nom, i) => {
+                let somme = 0;
+                TabNotes.forEach(noteLigne => somme += noteLigne[i]);
+                const moyenne = (somme / TabNotes.length).toFixed(2);
+                html += `<tr><td>${nom}</td><td>${moyenne}</td></tr>`;
+            });
+
+            html += "</tbody></table>";
+            document.getElementById("moyennes").innerHTML = html;
+        }
+
+        function NoteMin(TabNotes, TabNom) {
+            let min = TabNotes[0][0];
+            let eleve = TabNom[0];
+
+            TabNom.forEach((nom, i) => {
+                TabNotes.forEach(noteLigne => {
+                    if (noteLigne[i] < min) {
+                        min = noteLigne[i];
+                        eleve = nom;
+                    }
+                });
+            });
+
+            return {min, eleve};
+        }
+        function NoteMax(TabNotes, TabNom) {
+            let max = TabNotes[0][0];
+            let eleve = TabNom[0];
+
+            TabNom.forEach((nom, i) => {
+                TabNotes.forEach(noteLigne => {
+                    if (noteLigne[i] > max) {
+                        max = noteLigne[i];
+                        eleve = nom;
+                    }
+                });
+            });
+
+            return {max, eleve};
+        }
+        Afficher(NomEleves, Notes);
+        CalculMoyenneEleve(NomEleves, Notes);
+
+        const minInfo = NoteMin(Notes, NomEleves);
+        const maxInfo = NoteMax(Notes, NomEleves);
+
+        document.getElementById("minMax").innerHTML = `
+            <h2>Note minimale et maximale</h2>
+            <p>Note minimale : ${minInfo.min} (élève : ${minInfo.eleve})</p>
+            <p>Note maximale : ${maxInfo.max} (élève : ${maxInfo.eleve})</p>
+        `;
+    </script>
+</body>
+</html>

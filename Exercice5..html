@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Exercice 5 - Palindrome</title>
+</head>
+<body>
+
+  <h2>Exercice 5 : Palindrome</h2>
+
+  <script>
+
+    function estPalindrome(chaine) {
+      const sansEspaces = chaine.replace(/\s+/g, '').toLowerCase();
+      const inverse = sansEspaces.split('').reverse().join('');
+      return sansEspaces === inverse;
+    }
+
+    const texte = prompt("Entrez un texte :");
+    if (estPalindrome(texte)) {
+      alert("C'est un palindrome !");
+    } else {
+      alert("Ce n'est pas un palindrome.");
+    }
+
+  </script>
+
+</body>
+</html>
+
+   

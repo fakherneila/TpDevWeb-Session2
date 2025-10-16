@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice8-Code César</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 300px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 5px 10px;
+            margin-bottom: 20px;
+        }
+        #resultats {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Codage César</h1>
+    
+    <p>Saisissez une phrase :</p>
+    <input type="text" id="phraseInput" placeholder="Votre phrase ici">
+    <button onclick="coderCesar()">Coder</button>
+
+    <div id="resultats"></div>
+
+    <p>Saisissez un décalage (nombre entier positif) :</p>
+    <input type="number" id="decalageInput" min="0" placeholder="Décalage">
+    <button onclick="coderAvecDecalage()">Coder avec décalage</button>
+
+    <script>
+       
+        function estMinuscule(c) {
+            return c >= 'a' && c <= 'z';
+        }
+
+      
+        function estLettre(c) {
+            return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+        }
+
+        function lettreSuivante(c) {
+            if (!estLettre(c)) return c;
+
+            const code = c.charCodeAt(0);
+            if (c >= 'a' && c <= 'z') {
+                return String.fromCharCode( ((code - 97 + 1) % 26) + 97 );
+            } else {
+                return String.fromCharCode( ((code - 65 + 1) % 26) + 65 );
+            }
+        }
+
+        
+        function decalage1(s) {
+            let result = '';
+            for (let i = 0; i < s.length; i++) {
+                result += lettreSuivante(s[i]);
+            }
+            return result;
+        }
+
+        
+        function decalageN(s, n) {
+            let result = '';
+            for (let i = 0; i < s.length; i++) {
+                let c = s[i];
+                if (estLettre(c)) {
+                    let code = c.charCodeAt(0);
+                    if (c >= 'a' && c <= 'z') {
+                        result += String.fromCharCode( ((code - 97 + n) % 26) + 97 );
+                    } else {
+                        result += String.fromCharCode( ((code - 65 + n) % 26) + 65 );
+                    }
+                } else {
+                    result += c;
+                }
+            }
+            return result;
+        }
+
+        
+        function coderCesar() {
+            const phrase = document.getElementById("phraseInput").value;
+            if (!phrase) {
+                alert("Veuillez saisir une phrase !");
+                return;
+            }
+            const code = decalageN(phrase, 2);
+            document.getElementById("resultats").innerHTML = `
+                <p>Phrase codée par César (décalage 2) : <strong>${code}</strong></p>
+            `;
+        }
+
+        
+        function coderAvecDecalage() {
+            const phrase = document.getElementById("phraseInput").value;
+            const n = parseInt(document.getElementById("decalageInput").value);
+            if (!phrase) {
+                alert("Veuillez saisir une phrase !");
+                return;
+            }
+            if (isNaN(n) || n < 0) {
+                alert("Veuillez entrer un nombre entier positif pour le décalage !");
+                return;
+            }
+            const code = decalageN(phrase, n);
+            document.getElementById("resultats").innerHTML += `
+                <p>Phrase codée avec décalage ${n} : <strong>${code}</strong></p>
+            `;
+        }
+    </script>
+</body>
+</html>
